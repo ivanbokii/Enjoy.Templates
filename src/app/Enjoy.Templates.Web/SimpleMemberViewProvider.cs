@@ -3,14 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using Enjoy.Web.Util;
-using Enjoy.Web.Views;
 using Enjoy.Web.Views.Fields;
 using Fasterflect;
 using Wandering.Monads.Maybe;
 
 namespace Enjoy.Web
 {
-    public class SimpleViewProvider : IObjectViewProvider, IMemberViewProvider
+    public class SimpleMemberViewProvider : IMemberViewProvider
     {
         public Maybe<object> ForMember(MemberInfo member, Func<object> instanceAccessor)
         {
@@ -21,21 +20,6 @@ namespace Enjoy.Web
                 return builder.Value(member, propertyAccessor);
             }
             return new Nothing<object>();
-        }
-
-        public Maybe<object> For(object instance)
-        {
-            var fieldSet = new FieldSet();
-            var members = instance.GetType().FieldsAndProperties();
-            foreach (var member in members)
-            {
-                var view = ForMember(member, () => instance);
-                if (view.IsJust())
-                {
-                    fieldSet.Add(view.FromJust());
-                }
-            }
-            return fieldSet;
         }
 
         private static object ForString(MemberInfo member, Func<object> propertyAccessor)

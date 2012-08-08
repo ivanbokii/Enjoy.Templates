@@ -82,6 +82,7 @@ namespace :main do
     lib = Dir['packages/**/*.dll'].collect {|path| "/lib:#{File.dirname(path)}"}
     lib = lib + Dir['build/artifacts/**/*.dll'].collect {|path| "/lib:#{File.dirname(path)}"}
     lib = lib + ['/lib:"/Program Files (x86)/Microsoft ASP.NET/ASP.NET MVC 3/Assemblies"']
+    lib = lib + ['/lib:"/Program Files (x86)/Microsoft ASP.NET/ASP.NET Web Pages/v1.0/Assemblies"']
     out = File.join(out_dir, PATHS[:main][:assemblies][:mvc][:assembly])
     primary = File.join(PATHS[:main][:assemblies][:mvc][:release_dir], PATHS[:main][:assemblies][:mvc][:assembly])
 

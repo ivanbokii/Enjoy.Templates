@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
+using System.Linq;
 using System.Web.Mvc;
 using Enjoy.Web;
 using Wandering.Monads.Maybe;
@@ -9,26 +11,17 @@ namespace Enjoy.Mvc
 {
     public sealed class EngineTemplateProvider : IHtmlTemplateProvider
     {
-        public EngineTemplateProvider(ViewContext viewContext, ViewDataDictionary viewData)
+        public EngineTemplateProvider
+            (ViewContext mvcViewContext, ViewDataDictionary mvcViewData, IEnumerable<IViewEngine> mvcViewEngines)
         {
-            this.viewContext = viewContext;
-            this.viewData = viewData;
+            this.mvcViewContext = mvcViewContext;
+            this.mvcViewData = mvcViewData;
+            this.mvcViewEngines = new ViewEngineCollection(mvcViewEngines.ToList());
         }
 
-        public Maybe<Func<object, string>> GetDisplayTemplate(Type type)
+        public Maybe<Func<object, string>> TemplateFor(Type viewType)
         {
-            return GetTemplate(type, "DisplayTemplates");
-        }
-
-        public Maybe<Func<object, string>> GetEditorTemplate(Type type)
-        {
-            return GetTemplate(type, "EditorTemplates");
-        }
-
-        private Maybe<Func<object, string>> GetTemplate(Type type, string templateDir)
-        {
-            var partialViewName = string.Format("{0}/{1}", templateDir, type.Name);
-            var viewEngineResult = ViewEngines.Engines.FindPartialView(viewContext, partialViewName);
+            var viewEngineResult = mvcViewEngines.FindPartialView(mvcViewContext, viewType.Name);
 
             if (viewEngineResult.View == null)
             {
@@ -36,26 +29,27 @@ namespace Enjoy.Mvc
             }
 
             return new Just<Func<object, string>>
-                (model =>
+                (view =>
                     {
-                        var viewDataType = typeof (ViewDataDictionary<>).MakeGenericType(type);
-                        var owned = (ViewDataDictionary) Activator.CreateInstance(viewDataType, model);
-                        foreach (var pair in viewData)
+                        var viewDataType = typeof (ViewDataDictionary<>).MakeGenericType(viewType);
+                        var owned = (ViewDataDictionary) Activator.CreateInstance(viewDataType, view);
+                        foreach (var pair in mvcViewData)
                         {
                             owned.Add(pair);
                         }
-
                         using (var writer = new StringWriter(CultureInfo.InvariantCulture))
                         {
                             viewEngineResult.View.Render
                                 (new ViewContext
-                                     (viewContext, viewEngineResult.View, owned, viewContext.TempData, writer), writer);
+                                     (mvcViewContext, viewEngineResult.View, owned, mvcViewContext.TempData, writer),
+                                 writer);
                             return writer.ToString();
                         }
                     });
         }
 
-        private readonly ViewContext viewContext;
-        private readonly ViewDataDictionary viewData;
+        private readonly ViewContext mvcViewContext;
+        private readonly ViewDataDictionary mvcViewData;
+        private readonly ViewEngineCollection mvcViewEngines;
     }
 }

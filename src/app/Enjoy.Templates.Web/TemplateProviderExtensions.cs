@@ -1,17 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
-using Enjoy.Web;
 using Wandering.Monads.Maybe;
 
-namespace Enjoy.Mvc
+namespace Enjoy.Web
 {
-    internal static class HtmlTemplateProviderExtensions
+    public static class TemplateProviderExtensions
     {
-        public static Maybe<Func<object, string>> GetEditorTemplate(this IEnumerable<IHtmlTemplateProvider> templateProviders, Type viewType)
+        public static Maybe<Func<object, string>> For(this IEnumerable<IHtmlTemplateProvider> templateProviders, Type viewType)
         {
             foreach (var templateProvider in templateProviders)
             {
-                var template = templateProvider.GetEditorTemplate(viewType);
+                var template = templateProvider.TemplateFor(viewType);
                 if (template.IsJust())
                 {
                     return template;

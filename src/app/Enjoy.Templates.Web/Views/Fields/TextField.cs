@@ -5,6 +5,7 @@ namespace Enjoy.Web.Views.Fields
     /// </summary>
     public class TextField : Field
     {
+        public virtual string Label { get; set; }
         public virtual string Placeholder { get; set; }
         public virtual object Value { get; set; }
     }

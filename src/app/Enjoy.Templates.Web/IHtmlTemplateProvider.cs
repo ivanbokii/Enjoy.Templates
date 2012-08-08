@@ -5,7 +5,7 @@ namespace Enjoy.Web
 {
     public interface IHtmlTemplateProvider
     {
-        Maybe<Func<object, string>> GetDisplayTemplate(Type type);
-        Maybe<Func<object, string>> GetEditorTemplate(Type type);
+        // Should I make this return IHtmlString?
+        Maybe<Func<object, string>> TemplateFor(Type viewType);
     }
 }

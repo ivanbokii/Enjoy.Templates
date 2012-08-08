@@ -4,28 +4,29 @@ using Enjoy.Web;
 
 namespace Enjoy.Mvc
 {
-    public abstract class EnjoyViewPage<TModel> : WebViewPage<TModel>
-    {
-        public new MvcContext<TModel> Html { get; set; }
+    //public abstract class EnjoyViewPage<TModel> : WebViewPage<TModel>
+    //{
+    //    public new MvcContext<TModel> Html { get; set; }
 
-        /// <remarks>
-        /// Make sure this is set through property injection.
-        /// </remarks>
-        public IEnumerable<IMemberViewProvider> MemberViewProviders { get; set; }
+    //    /// <remarks>
+    //    /// Make sure this is set through property injection.
+    //    /// </remarks>
+    //    public IEnumerable<IMemberViewProvider> MemberViewProviders { get; set; }
 
-        /// <remarks>
-        /// Make sure this is set through property injection.
-        /// </remarks>
-        public IEnumerable<IObjectViewProvider> ObjectViewProviders { get; set; }
+    //    /// <remarks>
+    //    /// Make sure this is set through property injection.
+    //    /// </remarks>
+    //    public IEnumerable<IObjectViewProvider> ObjectViewProviders { get; set; }
 
-        /// <remarks>
-        /// Make sure this is set through property injection.
-        /// </remarks>
-        public IEnumerable<IHtmlTemplateProvider> TemplateProviders { get; set; }
+    //    /// <remarks>
+    //    /// Make sure this is set through property injection.
+    //    /// </remarks>
+    //    public IEnumerable<IHtmlTemplateProvider> TemplateProviders { get; set; }
 
-        public override void InitHelpers()
-        {
-            Html = new MvcContext<TModel>(ViewContext, this, ObjectViewProviders, MemberViewProviders, TemplateProviders);
-        }
-    }
+    //    public override void InitHelpers()
+    //    {
+    //        Html = new MvcContext<TModel>
+    //            (ViewContext, this, ViewEngines.Engines, ObjectViewProviders, MemberViewProviders, TemplateProviders);
+    //    }
+    //}
 }

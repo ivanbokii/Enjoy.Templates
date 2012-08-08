@@ -4,18 +4,29 @@ using Enjoy.Web;
 
 namespace Enjoy.Mvc
 {
-    public abstract class EnjoyViewPage : WebViewPage
-    {
-        public new MvcContext Html { get; set; }
+    //public abstract class EnjoyViewPage : WebViewPage
+    //{
+    //    public new MvcContext Html { get; set; }
 
-        /// <remarks>
-        /// Make sure this is set through property injection.
-        /// </remarks>
-        public IEnumerable<IHtmlTemplateProvider> TemplateProviders { get; set; }
+    //    /// <remarks>
+    //    /// Make sure this is set through property injection.
+    //    /// </remarks>
+    //    public IEnumerable<IMemberViewProvider> MemberViewProviders { get; set; }
 
-        public override void InitHelpers()
-        {
-            Html = new MvcContext(ViewContext, this, TemplateProviders);
-        }
-    }
+    //    /// <remarks>
+    //    /// Make sure this is set through property injection.
+    //    /// </remarks>
+    //    public IEnumerable<IObjectViewProvider> ObjectViewProviders { get; set; }
+
+    //    /// <remarks>
+    //    /// Make sure this is set through property injection.
+    //    /// </remarks>
+    //    public IEnumerable<IHtmlTemplateProvider> TemplateProviders { get; set; }
+
+    //    public override void InitHelpers()
+    //    {
+    //        Html = new MvcContext
+    //            (ViewContext, this, ViewEngines.Engines, ObjectViewProviders, MemberViewProviders, TemplateProviders);
+    //    }
+    //}
 }

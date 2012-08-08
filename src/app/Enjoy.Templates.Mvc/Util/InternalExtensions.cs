@@ -4,7 +4,7 @@ using Own.Failure;
 
 namespace Enjoy.Mvc.Util
 {
-    internal static class TypeExtensions
+    internal static class InternalExtensions
     {
         /// <summary>
         /// Returns the type, then its base class, then its base class, all the way to Object.

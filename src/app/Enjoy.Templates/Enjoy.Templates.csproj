@@ -54,8 +54,10 @@
     <Compile Include="..\..\CommonAssemblyInfo.cs">
       <Link>Properties\CommonAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="MemberViewProviderCollection.cs" />
     <Compile Include="IObjectViewProvider.cs" />
     <Compile Include="IMemberViewProvider.cs" />
+    <Compile Include="ObjectViewProviderCollection.cs" />
     <Compile Include="Util\ReflectionExtensions.cs" />
     <Compile Include="ViewProviderExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
