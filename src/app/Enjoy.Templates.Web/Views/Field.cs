@@ -6,5 +6,6 @@
     public abstract class Field
     {
         public virtual string Key { get; set; }
+        public virtual string Class { get; set; }
     }
 }
